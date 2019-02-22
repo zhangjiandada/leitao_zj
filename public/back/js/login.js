@@ -25,6 +25,9 @@ $(function () {
                         max: 6,
                         message: '用户名长度必须在6到30之间'
                     },
+                    callback:{
+                        message:'用户名不存在'
+                    }
 
                 }
 
@@ -41,6 +44,9 @@ $(function () {
                         max: 20,
                         message: '密码长度必须在6到20之间'
                     },
+                    callback:{
+                        message:'密码错误'
+                    }
 
                 }
 
@@ -53,29 +59,34 @@ $(function () {
 
 
     //ajax
-    $("#form").on('success.form.bv',function(e){
+    $("#form").on('success.form.bv', function (e) {
         e.preventDefault();
         // console.log(111);
         $.ajax({
-            type:'post',
-            url:"/employee/employeeLogin",
-            data:$('#form').serialize(),
-            datatype:"json",
-            success:function(res){
-                console.log(res.error==1000);
-                if(res.error==1000){
-                    alert("用户名错误")
+            type: 'post',
+            url: "/employee/employeeLogin",
+            data: $('#form').serialize(),
+            datatype: "json",
+            success: function (res) {
+                // console.log(res.error==1000);
+                if (res.error == 1000) {
+                  $("form").data("bootstrapValidator").updateStatus('username','INVALID',"callback")
                 }
-                if(res.error==1001){
-                    alert("密码错误")
+                if (res.error == 1001) {
+                    $("form").data("bootstrapValidator").updateStatus('password','INVALID',"callback")
                 }
-                if(res.success){
-                    location.href="index.html"
+                if (res.success) {
+                    location.href = "index.html"
                 }
 
             },
 
         })
-        
+
     })
+});
+$(function(){
+   $('[type="reset"]').on("click",function(){
+       $("#form").data("bootstrapValidator").resetForm();
+   })
 });
