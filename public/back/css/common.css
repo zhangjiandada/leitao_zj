@@ -125,3 +125,9 @@ ul{
 .modal-body p{
     color: red;
 }
+.main-left,
+.main-right{
+    width: 46%;
+    height: 600px;
+    background-color: pink;
+}

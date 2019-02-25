@@ -17,7 +17,7 @@ $(function(){
     });
     //菜单
     var $meun =$('.first-i');
-    console.log($meun);
+    // console.log($meun);
     $meun.on('click',function(){
         $('.l_aside').toggleClass('hiddenm'),
         $('.l_main').toggleClass('hiddenm'),
